@@ -4,11 +4,11 @@ An advanced, client-side Minecraft Fabric mod that provides automated mining wit
 
 ## Features
 
-* **Smart Area Mining**: Select any 3D area and the miner will clear it using an efficient, layer-by-layer snake pattern to minimize travel time.
+* **Smart Area Mining**: Select any 3D area and the miner will clear it using an efficient, layer-by-layer snake pattern. The miner now starts each new layer from the corner closest to your position to minimize travel time and intelligently handles vegetation.
 * **Pause & Resume**: Pause the mining operation at any time and resume exactly where you left off.
 * **Persistent Learning**: A reward-based system remembers successful and unsuccessful locations and saves this data to `training_data.json`, improving pathfinding over time.
 * **Training Mode**: Generate a test area to safely run and train the miner's logic in a controlled environment.
-* **Configuration**: Fine-tune settings like the pathfinding search limit via the in-game config menu (requires Mod Menu) or chat commands.
+* **Configuration**: Fine-tune settings like the pathfinding search limit, nodes processed per tick, and stuck detection timer via the in-game config menu (requires Mod Menu) or chat commands.
 * **Visual Feedback**: See your selected area, the miner's planned path, and the current target with colored overlays. Status messages are also shown on the action bar.
 * **Client-Side Commands**: All commands are handled locally and are not sent to the server or public chat.
 
@@ -38,7 +38,7 @@ While the mod is best used with keybindings, every action has a corresponding ch
 
 **Configuration Commands:**
 * `+automine config show` - Displays the current settings.
-* `+automine config set pathfindingLimit <value>` - Changes the pathfinding search limit.
+* `+automine config set pathfindingLimit <value>` - Changes the pathfinding search limit (value must be between 10 and 10000).
 * `+automine config reset` - Resets settings to their defaults.
 
 ## Safety Features
@@ -47,6 +47,7 @@ While the mod is best used with keybindings, every action has a corresponding ch
 * Checks for safe footing before moving to a new position.
 * Prioritizes breaking falling blocks (e.g., gravel, sand) above the target to prevent collapses.
 * Detects fall damage and applies a learning penalty to avoid similar situations in the future.
+* **Tool Durability Check**: Automatically monitors tool durability and pauses the operation with a warning if the active tool is about to break, preventing accidental tool loss.
 * Stops automatically when the entire area has been mined.
 
 ## Requirements
