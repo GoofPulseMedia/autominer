@@ -1,0 +1,32 @@
+# === Build System: Gradle ===
+# Ignore Gradle cache and build outputs
+.gradle/
+build/
+
+# === IDEs: IntelliJ, Eclipse, VSCode ===
+# Ignore project files from common Integrated Development Environments
+.idea/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings/
+.vscode/
+
+# === Minecraft & Fabric Development Environment ===
+# Ignore the local game instance, logs, and caches
+run/
+logs/
+crash-reports/
+.fabric/
+yarn/
+
+# === User-Generated Files (Specific to AutoMiner) ===
+# Ignore the configuration and training data files your mod creates
+config/autominer.json
+training_data.json
+
+# === Common System Files ===
+# Ignore macOS-specific files
+*.DS_Store
