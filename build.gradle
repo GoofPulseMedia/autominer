@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
 }
 
-version = "0.9.0alpha"
+version = "0.9.1alpha"
 group = "net.autominer"
 
 repositories {
@@ -24,7 +24,8 @@ repositories {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/autominer.accesswidener")
+    // Removed access widener to prevent production crashes
+    // accessWidenerPath = file("src/main/resources/autominer.accesswidener")
 }
 
 dependencies {

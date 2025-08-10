@@ -1,12 +1,17 @@
 package net.autominer;
 
-import net.minecraft.client.render.*;
+import java.util.List;
+
+import org.joml.Matrix4f;
+
+import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Matrix4f;
-import java.util.List;
 
 public class AreaRenderer {
 

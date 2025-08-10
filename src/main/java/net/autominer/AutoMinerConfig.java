@@ -1,18 +1,29 @@
 // filename: AutoMinerConfig.java
 package net.autominer;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.file.Files;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class AutoMinerConfig {
-    private static final File CONFIG_FILE = new File("config/autominer.json");
+    private static final File MOD_DIRECTORY = new File("autominer");
+    private static final File CONFIG_FILE = new File(MOD_DIRECTORY, "autominer.json");
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    // Standardwert, falls keine Konfigurationsdatei vorhanden ist.
     public int maxSearchNodes = 80000;
+    
+    // NEU: Steuert, wie viele Pfadfinderknoten pro Tick verarbeitet werden, um Lags zu verhindern.
+    public int nodesPerTick = 4000;
+    
+    // Maximale Anzahl von Ticks bevor ein "Stuck" Zustand erkannt wird
+    public int maxStuckTicks = 60;
 
     public int getPathfindingLimit() {
         return maxSearchNodes;
@@ -25,13 +36,13 @@ public class AutoMinerConfig {
     public static AutoMinerConfig load() {
         if (CONFIG_FILE.exists()) {
             try (Reader reader = new FileReader(CONFIG_FILE)) {
-                return GSON.fromJson(reader, AutoMinerConfig.class);
+                AutoMinerConfig config = GSON.fromJson(reader, AutoMinerConfig.class);
+                return config != null ? config : new AutoMinerConfig();
             } catch (IOException e) {
-                System.err.println("[AutoMiner] Konnte die Konfigurationsdatei nicht lesen, verwende Standardwerte.");
+                System.err.println("[AutoMiner] Could not read config file, using default values.");
                 e.printStackTrace();
             }
         }
-        // Wenn die Datei nicht existiert, erstelle eine neue Konfiguration mit Standardwerten und speichere sie.
         AutoMinerConfig config = new AutoMinerConfig();
         config.save();
         return config;
@@ -39,13 +50,12 @@ public class AutoMinerConfig {
 
     public void save() {
         try {
-            // Stelle sicher, dass das "config"-Verzeichnis existiert.
-            Files.createDirectories(Paths.get("config"));
+            Files.createDirectories(MOD_DIRECTORY.toPath());
             try (Writer writer = new FileWriter(CONFIG_FILE)) {
                 GSON.toJson(this, writer);
             }
         } catch (IOException e) {
-            System.err.println("[AutoMiner] Konnte die Konfigurationsdatei nicht speichern.");
+            System.err.println("[AutoMiner] Could not save config file.");
             e.printStackTrace();
         }
     }
