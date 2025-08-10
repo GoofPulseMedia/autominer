@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "autominer",
+  "version": "${version}",
+  "name": "AutoMiner",
+  "description": "Automated mining mod with area selection and smart mining logic",
+  "authors": [
+    "evenex."
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+  "license": "MIT",
+  "icon": "assets/autominer/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "net.autominer.AutoMiner"
+    ],
+    "modmenu": [
+      "net.autominer.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "autominer.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "fabric": ">=0.110.5",
+    "minecraft": "~1.21.4",
+    "java": ">=21"
+  },
+  "suggests": {
+    "modmenu": ">=9.0.0"
+  }
+}

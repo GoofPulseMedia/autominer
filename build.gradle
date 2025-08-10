@@ -1,0 +1,74 @@
+plugins {
+    id 'fabric-loom' version '1.10.1'
+    id 'maven-publish'
+}
+
+version = "0.9.0alpha"
+group = "net.autominer"
+
+repositories {
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net/'
+    }
+    maven {
+        name = 'ParchmentMC'
+        url = 'https://maven.parchmentmc.org'
+    }
+    // NEU: Repository für Mod Menu hinzufügen
+    maven {
+        name = 'TerraformersMC'
+        url = 'https://maven.terraformersmc.com/releases/'
+    }
+    mavenCentral()
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/autominer.accesswidener")
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:1.21.8"
+    mappings "net.fabricmc:yarn:1.21.8+build.1:v2"
+    modImplementation "net.fabricmc:fabric-loader:0.16.14"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.129.0+1.21.8"
+    
+    // NEU: Mod Menu und Gson als Abhängigkeiten hinzufügen
+    modImplementation "com.terraformersmc:modmenu:15.0.0-beta.3"
+    implementation "com.google.code.gson:gson:2.10.1"
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    it.options.release = 21
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    withSourcesJar()
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.name}" }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+    }
+}

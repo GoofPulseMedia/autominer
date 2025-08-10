@@ -1,7 +1,10 @@
 # === Build System: Gradle ===
 # Ignore Gradle cache and build outputs
+.github/
 .gradle/
 build/
+bin/
+gradle-temp/
 
 # === IDEs: IntelliJ, Eclipse, VSCode ===
 # Ignore project files from common Integrated Development Environments
@@ -26,6 +29,11 @@ yarn/
 # Ignore the configuration and training data files your mod creates
 config/autominer.json
 training_data.json
+
+# === Common Archives & Installers ===
+*.zip
+*.jar
+*.msi
 
 # === Common System Files ===
 # Ignore macOS-specific files

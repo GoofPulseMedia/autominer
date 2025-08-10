@@ -1,0 +1,4 @@
+accessWidener v2 named
+
+# Make PlayerInventory selectedSlot field accessible
+accessible field net/minecraft/entity/player/PlayerInventory selectedSlot I
